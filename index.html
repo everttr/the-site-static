@@ -1,0 +1,129 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title layout:title-pattern="$CONTENT_TITLE: $LAYOUT_TITLE">The Site</title>
+    <link th:href="@{static/favicon.ico}" href="../../static/favicon.ico" rel="icon" type="image/ico">
+    <link th:href="@{static/css/style.css}" href="../../static/css/style.css" rel="stylesheet">
+    <script
+        id="gl-matrix-js"
+        src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"
+        integrity="sha512-zhHQR0/H5SEBL3Wn6yYSaTTZej12z0hVZKOv3TwCUXT1z5qeqGcXJLLrbERYRScEDDpYIJhPC1fk31gqR783iQ=="
+        crossorigin="anonymous"
+        defer></script>
+    </script>
+    <script th:src="@{static/js/fluid/shaderSources.js}" type="module" th:id="shader-source-js" defer></script>
+    <script th:src="@{static/js/fluid/controller.js}" type="module" th:id="fluid-controller-js" defer></script>
+    <script th:src="@{static/js/page/navigation.js}" type="module" th:id="nav-controller-js" defer></script>
+    <div th:remove="all">
+        <!-- REMOVED IN PRODUCTION. This is for local testing because of cross-domain CORS rules -->
+        <script id="fluid-controller-js" src="../../static/js/fluid/controller.js" defer></script>
+        <script id="shader-source-js" src="../../static/js/fluid/shaderSources.js" defer></script>
+        <script id="nav-controller-js" src="../../static/js/page/navigation.js" defer></script>
+    </div>
+    <script id="init-script">
+        const helperScriptCount = 4;
+        var helperScriptsLoaded = 0;
+        function pollForInit(name) {
+            if (++helperScriptsLoaded == helperScriptCount) {
+                try { window.initNavigation(); }
+                catch (e) { console.error(e); }
+                try { window.initFluidSim(); }
+                catch (e) { console.error(e); }
+            }
+        }
+
+        document.getElementById("gl-matrix-js").addEventListener("load", () => pollForInit("gl-matrix"));
+        document.getElementById("fluid-controller-js").addEventListener("load", () => pollForInit("fluid-controller"));
+        document.getElementById("shader-source-js").addEventListener("load", () => pollForInit("shader-source"));
+        document.getElementById("nav-controller-js").addEventListener("load", () => pollForInit("nav-controller"));
+    </script>
+</head>
+<body>
+    <!-- Site Header -->
+    <div th:replace="~{fragments/header :: header}" class="container">
+        <header th:fragment="header" id="page-header" class="page-sandwich-bun">
+            <div>
+                <a class="page-link" dest-id="home">The Site.</a>
+            </div>
+        </header>
+    </div>
+
+    <div id="main-scroller">
+        <!-- Shader Show Off Area -->
+        <div>
+            <canvas id="shader-canvas" width="480" height="480"></canvas>
+            <div id="shader-canvas-veil"></div>
+        </div>
+        <!-- Main Body -->
+        <div class="floating-body" page-id="home">
+            <!-- Splash -->
+            <div class="body-container" id="splash-container">
+                <div id="splash">
+                    <p th:text="${splashText}">Example Splash!</p>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="body-container paragraph-container">
+                <p class="paragraph">
+                    I'm a senior at Oregon State University majoring in Computer Science and minoring in Mathematics.
+                    This is my portfolio/résumé/personal website, hosted with SpringBoot on an AWS EC2 server,
+                    and including a custom WebGL navier-stokes implementation!
+                    As you can see, I have an interest in full-stack development, computer graphics, and anything creative.
+                    There are links below showcasing a subset of my projects/accomplishments,
+                    and if you want a general overview:
+                    <a href="../../static/docs/resume.pdf" th:href="@{static/docs/resume.pdf}" target="_blank">here's the link to my résumé</a>.
+                    For further inquiries, you can reach me at
+                    <a th:text="${email}" th:href"mailto:${email}" href="mailto:reed@evertt.com">reed@evertt.com</a>
+                    :)
+                </p>
+                <h2>Projects:</h2>
+                <ul>
+                    <li th:each="page: ${pageList}">
+                        <p><a class="page-link" th:text="${page.title}" dest-id="test" th:dest-id="${page.id}">Example page with link</a></p>
+                        <p th:text="${page.description}" class="paragraph">Example description</p>
+                    </li>
+                    <li>
+                        <p><i><u>More Coming Soon!</u></i></p>
+                        <p class="paragraph">It takes a while to make all these pages, you know.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div th:each="page: ${pageList}" class="floating-body inactive" page-id="test" th:page-id="${page.id}">
+            <!-- Page Header -->
+            <div class="body-container page-header">
+                <!-- Back Button -->
+                <div class="page-back-button unselectable page-link" dest-id="home">
+                    <img src="../../static/images/ui/x.png" th:src="@{static/images/ui/x.png}"></img>
+                </div>
+                <!-- Page Title -->
+                <div class="page-title">
+                    <h2 th:text="${page.title}">Example Page Title</h2>
+                </div>
+            </div>
+
+            <!-- Page Body -->
+            <div class="body-container">
+                <div th:replace="${page.fragment}">
+                    <p class="paragraph">Here is an example of a writeup for this particular page/project.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Site Footer -->
+    <div th:replace="~{fragments/footer :: footer}">
+        <footer th:fragment="footer" id="page-footer" class="page-sandwich-bun">
+            <div id="footer-date">
+                Server Time: the <span th:text="${day}">Nth</span> day of the <span th:text="${month}">Nth</span> month of the <span th:text="${year}">Nth</span> year CE.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

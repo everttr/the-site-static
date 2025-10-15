@@ -1,0 +1,31 @@
+<div th:fragment="body">
+    <h2>Overview</h2>
+    <p class="paragraph">
+        This site is a portfolio project that also is my portfolio.
+        The subsequent sections walk you through every framework I had to learn and (some of the many) obstacles I had to surpass.
+        Feel free to look through the code! The repository for it is here:
+        <a href="https://github.com/everttr/the-site-static" target="_blank">https://github.com/everttr/the-site-static</a>.
+    </p>
+    <h2>Shaders!</h2>
+    <p class="paragraph">
+        The flashiest part of this website I spent the most time on.
+        The background is my own custom Navier-Stokes running on your GPU.
+        Using the features of WebGL 2.0, every simulation step uses many render passes and many
+        render buffers to get its final state. The simulation is spread across the input, diffusion, projection,
+        and advection steps for both the density and velocity fields.
+        Visual rendering to the canvas is decoupled from simulation to allow for frame blending;
+        I toiled over many optimizations to get it to run in realtime and still be energy/mass conserving.
+        Here's a link to specifically the shader/controller code:
+        <a href="https://github.com/everttr/the-site/tree/main/src/main/resources/static/js/fluid" target="_blank">(I'm very much proud of it)</a>
+    </p>
+    <h2>AWS/SpringBoot Server</h2>
+    <p class="paragraph">
+        AWS/SpringBoot Server
+        There is also a dynamically served version of this site hosted on an AWS EC2 server.
+        It's build with SpringBoot and Thymeleaf, and uses GitHub actions for continuous deployment to the remote server,
+        and it also has a few dynamically served bells and whistles for good measure.
+        Here's the <a href="https://github.com/everttr/the-site" target="_blank">link to its repository</a>, and here's also the
+        <a href="https://ec2-35-91-49-99.us-west-2.compute.amazonaws.com/home" target="_blank">link to the server itself</a>
+        (though note that at the time of writing the SSL certificates aren't set up, so it can only load on Firefox).
+    </p>
+</div>

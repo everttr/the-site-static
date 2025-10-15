@@ -1,0 +1,304 @@
+/* Constants! */
+:root
+{
+    --background0: #3fcdf8;
+    --background1: #27beec;
+    --background2: #298EC4;
+    --background3: #116FA2;
+    --background-trans: #db943ca8;
+    --shadow1: #1a5a7cbd;
+    --shadow2: #a5681dbd;
+    --highlight1: #ffcd8f;
+    --highlight2: #e7a95e;
+    --highlight3: #c28c4b;
+    --super-stressed-text: #bae0ff;
+    --super-stressed-shadow: #0e5381d5;
+    --stressed-text: #000000;
+    --title-text: #3b3026;
+    --title-text-highlighted: #3980c2;
+    --title-text-clicked: #55a3ec;
+    --link-text: #96d5fc;
+    --link-text-highlighted: #d2eeff;
+    --link-text-clicked: #ffffff;
+    --link-text-shadow: #041a25;
+    --unstressed-text: #3b3a3a;
+
+    --transition-time: 0.0875s;
+}
+
+/* Generics/overrides */
+html
+{
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 19px;
+}
+*
+{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+a
+{
+    text-decoration: underline;
+    color: var(--link-text);
+    -webkit-transition: color var(--transition-time);
+       -moz-transition: color var(--transition-time);
+         -o-transition: color var(--transition-time);
+            transition: color var(--transition-time);
+    text-shadow: 1px 1px 2px var(--link-text-shadow);
+}
+#page-header a
+{
+    color: var(--title-text);
+    text-shadow: none;
+}
+a:hover
+{
+    cursor: pointer;
+    color: var(--link-text-highlighted)
+}
+a:active
+{
+    color: var(--link-text-clicked)
+}
+#page-header a:hover
+{
+    color: var(--title-text-highlighted)
+}
+#page-header a:active
+{
+    color: var(--title-text-clicked)
+}
+
+/* Main page organization */
+body
+{
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.page-sandwich-bun
+{
+    z-index: 1;
+    position: relative;
+    width: 100vw;
+    padding: 5px 0 5px;
+    margin: 0;
+    background-color: var(--highlight2);
+    color: var(--unstressed-text);
+    text-align: center;
+    align-content: space-evenly;
+    flex: 0 0 auto;
+}
+#page-header
+{
+    height: 40px;
+    box-shadow: 0px 3px 10px var(--shadow2);
+    font-size: 30px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif  ;
+    font-weight: bolder;
+}
+#page-footer
+{
+    min-height: 22px;
+    height: min-content;
+    box-shadow: 0px -3px 10px var(--shadow2);
+}
+#main-scroller
+{
+    position: relative;
+    width: 100vw;
+    height: 100%;
+    color: var(--stressed-text);
+    background-color: var(--background1);
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+#shader-canvas
+{
+    position: absolute;
+    top: 0px;
+    width: 100vw;
+    height: 100%;
+}
+#shader-canvas-veil
+{
+    position: absolute;
+    top: 0px;
+    width: 100vw;
+    height: 100%;
+    background-color: var(--background1);
+    transition: background-color 2.5s ease-in-out
+}
+#shader-canvas-veil.disappeared
+{
+    background-color: rgba(var(--background1), 0.0);
+}
+.floating-body
+{
+    position: relative;
+    z-index: 2;
+    width: 950px;
+    max-width: 75%;
+    height: max-content;
+    max-height: 75vh;
+    flex: 0 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scrollbar-color: var(--highlight1) var(--background2);
+    background-color: var(--background-trans);
+    color: var(--stressed-text);
+    align-self: center;
+    padding: 13px 45px 30px 45px;
+    margin: 20px 25px;
+    border-radius: 10px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: var(--highlight1);
+    animation: 10s linear infinite alternate both running border-shift;
+    box-shadow: 0px 0px 12px var(--shadow2);
+}
+@keyframes border-shift
+{
+    from { border-color: var(--highlight1); }
+    to { border-color: var(--highlight3); }
+}
+.floating-body.inactive
+{
+    display: none;
+}
+.page-back-button
+{
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 22px;
+    height: 22px;
+    padding: 5px;
+    border-radius: 7px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--background2);
+    background-color: var(--background3);
+    transition:
+        border-color var(--transition-time),
+        background-color var(--transition-time);
+    box-shadow: 2px 2px 5px var(--shadow1);
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+}
+.page-back-button:hover
+{
+    border-color: var(--background1);
+    background-color: var(--background2);
+}
+.page-back-button:active
+{
+    border-color: var(--background0);
+    transform: translate(2px, 2px);
+}
+.page-back-button img
+{
+    width: 22px;
+    height: 22px;
+}
+
+/* Lower-level specifics */
+.paragraph:before
+{
+    float: left;
+    white-space: nowrap;
+    content: ". . .";
+    padding-right: 0.5em;
+}
+.paragraph
+{
+    line-height: 1.25em;
+}
+#splash-container
+{
+    padding: 0px 0px 10px 0px;
+}
+#splash
+{
+    color: var(--super-stressed-text);
+    text-shadow: 2px 2px 3px var(--super-stressed-shadow);
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
+    padding: 0;
+    margin: 5px 0;
+    animation: 0.7s cubic-bezier(.52,.07,.74,.22) infinite alternate both running splash-jump;
+}
+@keyframes splash-jump {
+    from { transform: translate(0, -2px); }
+    to { transform: translate(0, 12px); }
+}
+.floating-body h2
+{
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 7px 0;
+}
+.floating-body ul
+{
+    list-style: disc;
+    padding: 0px 0px 0px 25px;
+}
+.floating-body li
+{
+    margin: 5px 0;
+}
+.floating-body li p
+{
+    margin: 5px 0;
+}
+.page-header
+{
+    padding: 0px 25px 10px 25px;
+}
+.page-title
+{
+    color: var(--super-stressed-text);
+    text-shadow: 2px 2px 3px var(--super-stressed-shadow);
+    text-align: center;
+}
+.img-holder
+{
+    text-align: center;
+}
+.img-holder img
+{
+    max-width: 90%;
+    max-height: 425px;
+    width: auto;
+    height: auto;
+    margin: 15px;
+    border-radius: 10px;
+    border-width: 5px;
+    border-style: outset;
+    border-color: var(--background1);
+    box-shadow: 0px 0px 6px var(--shadow1);
+}

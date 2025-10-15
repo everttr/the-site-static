@@ -1,0 +1,43 @@
+<div th:fragment="body">
+    <h2>Overview</h2>
+    <p class="paragraph">
+        I love programming, and I love art. Ergo: I love making games.
+        Below are three of my favorites that I've developed in the Unity game engine.        
+    </p>
+    <h2>Anathemia</h2>
+    <p class="paragraph">
+        This game was my take on the melding of Horror and the Rogue-Like genre.
+        Originally titled "procedural horrors", its ethos is that nothing is predictable.
+        You move through a randomized maze with randomized attributes fighting a randomized enemy with, you guessed it, a menagerie of randomized abilities.
+        Months and months were spent on just the AI for the monsters, making them as unpredictable and intelligent as possible;
+        they simulate the player's movement when they go out of sight, they lay in wait in strategically advantageous positions,
+        and they have dozens of possible tools to trick, surprise, and disorient the player.
+        Here's the game:
+        <a href="https://noodle-the-idiot.itch.io/anathemia" target="_blank">(though be warned: it is intentionally very difficult)</a>
+    </p>
+    <h2>Save State Game</h2>
+    <p class="paragraph">
+        This was the first game I ever published, and its story is about a game developer creating many different iterations of their first game.
+        It's a puzzle game where you play "Save State Game" throughout different (fictional) stages of its development, using various features added as development continues.
+        The primary gimmick involves saving and loading different "states" of your character,
+        and using those to navigate levels which are <i>not</i> saved alongside you.
+        One little feature that I think acts as synecdoche of the care that went into the whole is this:
+        every particle effect is randomized based on the character's loaded state, so no matter how many
+        times you load a state, your interactions with the world will be identical.
+        Here's the game:
+        <a href="https://noodle-the-idiot.itch.io/save-state-game" target="_blank">(I still think it holds up very well!)</a>
+    </p>
+    <h2>Infinite Sudoku</h2>
+    <p class="paragraph">
+        This is generalized sudoku.
+        There are many variations beyond the classic 9x9 we all know: 16x16, killer sudoku, sandwich sudoku, samurai sudoku, latin square, and about
+        one trillion more - this game implements a sudoku generating and solving algorithm which allows combining all of these at once,
+        and also runs in a fraction of a second.
+        I still believe making this was the most difficult logic and time-complexity challenge I've taken on;
+        believe it or not, five 25x25 sudoku boards smashed together have <i>a lot</i> of incorrect board states to prune!
+        I also implemented an entire custom GPU-based particle simulator to act as a background - it can
+        render tens of thousands of physics-adhering particles at hundreds of frames per second!
+        That last part may be why I haven't finished the polishing stage of the game.
+        Regardless, here's some images of what's been completed.
+    </p>        
+</div>
