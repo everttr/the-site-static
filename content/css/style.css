@@ -288,14 +288,15 @@ body
 .img-holder
 {
     text-align: center;
+    margin: 15px 0px;
 }
 .img-holder img
 {
-    max-width: 90%;
-    max-height: 425px;
+    max-width: 80%;
+    max-height: 325px;
     width: auto;
     height: auto;
-    margin: 15px;
+    margin: 2px;
     border-radius: 10px;
     border-width: 5px;
     border-style: outset;
