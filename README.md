@@ -1,4 +1,4 @@
-# the-site-static
+# About
 A version of my website "The Site" that can be hosted staticly on GitHub Pages. It's both a portfolio project and a portfolio in itself!
 It's currently live at: https://everttr.github.io/the-site-static/
 
