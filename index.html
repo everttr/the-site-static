@@ -1,13 +1,10 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title layout:title-pattern="$CONTENT_TITLE: $LAYOUT_TITLE">The Site</title>
-    <link th:href="@{static/favicon.ico}" href="../../static/favicon.ico" rel="icon" type="image/ico">
-    <link th:href="@{static/css/style.css}" href="../../static/css/style.css" rel="stylesheet">
+    <title>The Site</title>
+    <link href="content/favicon.ico" rel="icon" type="image/ico">
+    <link href="content/css/style.css" rel="stylesheet">
     <script
         id="gl-matrix-js"
         src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"
@@ -15,15 +12,9 @@
         crossorigin="anonymous"
         defer></script>
     </script>
-    <script th:src="@{static/js/fluid/shaderSources.js}" type="module" th:id="shader-source-js" defer></script>
-    <script th:src="@{static/js/fluid/controller.js}" type="module" th:id="fluid-controller-js" defer></script>
-    <script th:src="@{static/js/page/navigation.js}" type="module" th:id="nav-controller-js" defer></script>
-    <div th:remove="all">
-        <!-- REMOVED IN PRODUCTION. This is for local testing because of cross-domain CORS rules -->
-        <script id="fluid-controller-js" src="../../static/js/fluid/controller.js" defer></script>
-        <script id="shader-source-js" src="../../static/js/fluid/shaderSources.js" defer></script>
-        <script id="nav-controller-js" src="../../static/js/page/navigation.js" defer></script>
-    </div>
+    <script id="fluid-controller-js" src="content/js/fluid/controller.js" defer></script>
+    <script id="shader-source-js" src="content/js/fluid/shaderSources.js" defer></script>
+    <script id="nav-controller-js" src="content/js/page/navigation.js" defer></script>
     <script id="init-script">
         const helperScriptCount = 4;
         var helperScriptsLoaded = 0;
@@ -44,8 +35,8 @@
 </head>
 <body>
     <!-- Site Header -->
-    <div th:replace="~{fragments/header :: header}" class="container">
-        <header th:fragment="header" id="page-header" class="page-sandwich-bun">
+    <div class="container">
+        <header id="page-header" class="page-sandwich-bun">
             <div>
                 <a class="page-link" dest-id="home">The Site.</a>
             </div>
@@ -63,7 +54,7 @@
             <!-- Splash -->
             <div class="body-container" id="splash-container">
                 <div id="splash">
-                    <p th:text="${splashText}">Example Splash!</p>
+                    <p>Reed Evertt's Portfolio Site!</p>
                 </div>
             </div>
 
@@ -76,16 +67,36 @@
                     As you can see, I have an interest in full-stack development, computer graphics, and anything creative.
                     There are links below showcasing a subset of my projects/accomplishments,
                     and if you want a general overview:
-                    <a href="../../static/docs/resume.pdf" th:href="@{static/docs/resume.pdf}" target="_blank">here's the link to my résumé</a>.
+                    <a href="content/docs/resume.pdf"" target="_blank">here's the link to my résumé</a>.
                     For further inquiries, you can reach me at
-                    <a th:text="${email}" th:href"mailto:${email}" href="mailto:reed@evertt.com">reed@evertt.com</a>
+                    <a href="mailto:reed@evertt.com">reed@evertt.com</a>
                     :)
                 </p>
                 <h2>Projects:</h2>
                 <ul>
-                    <li th:each="page: ${pageList}">
-                        <p><a class="page-link" th:text="${page.title}" dest-id="test" th:dest-id="${page.id}">Example page with link</a></p>
-                        <p th:text="${page.description}" class="paragraph">Example description</p>
+                    <li>
+                        <p><a class="page-link" dest-id="the-site">This Site</a></p>
+                        <p class="paragraph">
+                            Indeed! The very site you're on! Built with SpringBoot and Thymeleaf, deployed on an AWS EC2 server, equiped with CI/CD using GitHub actions, and not to mention those wonderful shaders in the background!
+                        </p>
+                    </li>
+                    <li>
+                        <p><a class="page-link" dest-id="games">Unity Games</a></p>
+                        <p class="paragraph">
+                            Two published games (and many more unpublished...) built in Unity with C#, HLSL, custom sprites, models, sounds, and everything else - never used a premade asset in my life.
+                        </p>
+                    </li>
+                    <li>
+                        <p><a class="page-link" dest-id="mods">Game Modding</a></p>
+                        <p class="paragraph">
+                            I've also created many mods and plugins for other games (mostly Minecraft). One in particular I spent three months on full-time; it's the most complex enemy AI I've ever made!
+                        </p>
+                    </li>
+                    <li>
+                        <p><a class="page-link" dest-id="blender">Blender Work</a></p>
+                        <p class="paragraph">
+                            Over the past 5 years, I've been working on an 10-hour long experimental animated film. And you know me, it's full of insanely complex geometry shaders.
+                        </p>
                     </li>
                     <li>
                         <p><i><u>More Coming Soon!</u></i></p>
@@ -95,12 +106,147 @@
             </div>
         </div>
 
+        <!-- This Site -->
+        <div class="floating-body inactive" page-id="the-site">
+            <!-- Page Header -->
+            <div class="body-container page-header">
+                <!-- Back Button -->
+                <div class="page-back-button unselectable page-link" dest-id="home">
+                    <img src="content/images/ui/x.png"></img>
+                </div>
+                <!-- Page Title -->
+                <div class="page-title">
+                    <h2 th:text="${page.title}">This Site</h2>
+                </div>
+            </div>
+
+            <!-- Page Body -->
+            <div class="body-container">
+                <div>
+                    <h2>Overview</h2>
+                    <p class="paragraph">
+                        This site is a portfolio project that also is my portfolio.
+                        The subsequent sections walk you through every framework I had to learn and (some of the many) obstacles I had to surpass.
+                        Feel free to look through the code! The repository for it is here:
+                        <a href="https://github.com/everttr/the-site-static" target="_blank">https://github.com/everttr/the-site-static</a>.
+                    </p>
+                    <h2>Shaders!</h2>
+                    <p class="paragraph">
+                        The flashiest part of this website I spent the most time on.
+                        The background is my own custom Navier-Stokes running on your GPU.
+                        Using the features of WebGL 2.0, every simulation step uses many render passes and many
+                        render buffers to get its final state. The simulation is spread across the input, diffusion, projection,
+                        and advection steps for both the density and velocity fields.
+                        Visual rendering to the canvas is decoupled from simulation to allow for frame blending;
+                        I toiled over many optimizations to get it to run in realtime and still be energy/mass conserving.
+                        Here's a link to specifically the shader/controller code:
+                        <a href="https://github.com/everttr/the-site/tree/main/src/main/resources/static/js/fluid" target="_blank">(I'm very much proud of it)</a>
+                    </p>
+                    <h2>AWS/SpringBoot Server</h2>
+                    <p class="paragraph">
+                        AWS/SpringBoot Server
+                        There is also a dynamically served version of this site hosted on an AWS EC2 server.
+                        It's build with SpringBoot and Thymeleaf, and uses GitHub actions for continuous deployment to the remote server,
+                        and it also has a few dynamically served bells and whistles for good measure.
+                        Here's the <a href="https://github.com/everttr/the-site" target="_blank">link to its repository</a>, and here's also the
+                        <a href="https://ec2-35-91-49-99.us-west-2.compute.amazonaws.com/home" target="_blank">link to the server itself</a>
+                        (though note that at the time of writing the SSL certificates aren't set up, so it can only load on Firefox).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unity Games -->
+        <div class="floating-body inactive" page-id="games">
+            <!-- Page Header -->
+            <div class="body-container page-header">
+                <!-- Back Button -->
+                <div class="page-back-button unselectable page-link" dest-id="home">
+                    <img src="content/images/ui/x.png"></img>
+                </div>
+                <!-- Page Title -->
+                <div class="page-title">
+                    <h2>Unity Games</h2>
+                </div>
+            </div>
+
+            <!-- Page Body -->
+            <div class="body-container">
+                <div>
+                    <h2>Overview</h2>
+                    <p class="paragraph">
+                        I love programming, and I love art. Ergo: I love making games.
+                        Below are three of my favorites that I've developed in the Unity game engine.        
+                    </p>
+                    <h2>Anathemia</h2>
+                    <p class="paragraph">
+                        This game was my take on the melding of Horror and the Rogue-Like genre.
+                        Originally titled "procedural horrors", its ethos is that nothing is predictable.
+                        You move through a randomized maze with randomized attributes fighting a randomized enemy with, you guessed it, a menagerie of randomized abilities.
+                        Months and months were spent on just the AI for the monsters, making them as unpredictable and intelligent as possible;
+                        they simulate the player's movement when they go out of sight, they lay in wait in strategically advantageous positions,
+                        and they have dozens of possible tools to trick, surprise, and disorient the player.
+                        Here's the game:
+                        <a href="https://noodle-the-idiot.itch.io/anathemia" target="_blank">(though be warned: it is intentionally very difficult)</a>
+                    </p>
+                    <h2>Save State Game</h2>
+                    <p class="paragraph">
+                        This was the first game I ever published, and its story is about a game developer creating many different iterations of their first game.
+                        It's a puzzle game where you play "Save State Game" throughout different (fictional) stages of its development, using various features added as development continues.
+                        The primary gimmick involves saving and loading different "states" of your character,
+                        and using those to navigate levels which are <i>not</i> saved alongside you.
+                        One little feature that I think acts as synecdoche of the care that went into the whole is this:
+                        every particle effect is randomized based on the character's loaded state, so no matter how many
+                        times you load a state, your interactions with the world will be identical.
+                        Here's the game:
+                        <a href="https://noodle-the-idiot.itch.io/save-state-game" target="_blank">(I still think it holds up very well!)</a>
+                    </p>
+                    <h2>Infinite Sudoku</h2>
+                    <p class="paragraph">
+                        This is generalized sudoku.
+                        There are many variations beyond the classic 9x9 we all know: 16x16, killer sudoku, sandwich sudoku, samurai sudoku, latin square, and about
+                        one trillion more - this game implements a sudoku generating and solving algorithm which allows combining all of these at once,
+                        and also runs in a fraction of a second.
+                        I still believe making this was the most difficult logic and time-complexity challenge I've taken on;
+                        believe it or not, five 25x25 sudoku boards smashed together have <i>a lot</i> of incorrect board states to prune!
+                        I also implemented an entire custom GPU-based particle simulator to act as a background - it can
+                        render tens of thousands of physics-adhering particles at hundreds of frames per second!
+                        That last part may be why I haven't finished the polishing stage of the game.
+                        Regardless, here's some images of what's been completed.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Modding -->
         <div th:each="page: ${pageList}" class="floating-body inactive" page-id="test" th:page-id="${page.id}">
             <!-- Page Header -->
             <div class="body-container page-header">
                 <!-- Back Button -->
                 <div class="page-back-button unselectable page-link" dest-id="home">
-                    <img src="../../static/images/ui/x.png" th:src="@{static/images/ui/x.png}"></img>
+                    <img src="content/images/ui/x.png" th:src="@{static/images/ui/x.png}"></img>
+                </div>
+                <!-- Page Title -->
+                <div class="page-title">
+                    <h2 th:text="${page.title}">Example Page Title</h2>
+                </div>
+            </div>
+
+            <!-- Page Body -->
+            <div class="body-container">
+                <div th:replace="${page.fragment}">
+                    <p class="paragraph">Here is an example of a writeup for this particular page/project.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blender Work -->
+        <div th:each="page: ${pageList}" class="floating-body inactive" page-id="test" th:page-id="${page.id}">
+            <!-- Page Header -->
+            <div class="body-container page-header">
+                <!-- Back Button -->
+                <div class="page-back-button unselectable page-link" dest-id="home">
+                    <img src="content/images/ui/x.png" th:src="@{static/images/ui/x.png}"></img>
                 </div>
                 <!-- Page Title -->
                 <div class="page-title">
@@ -118,10 +264,10 @@
     </div>
 
     <!-- Site Footer -->
-    <div th:replace="~{fragments/footer :: footer}">
-        <footer th:fragment="footer" id="page-footer" class="page-sandwich-bun">
-            <div id="footer-date">
-                Server Time: the <span th:text="${day}">Nth</span> day of the <span th:text="${month}">Nth</span> month of the <span th:text="${year}">Nth</span> year CE.
+    <div>
+        <footer id="page-footer" class="page-sandwich-bun">
+            <div id="footer-comment">
+                A whole heap of sincerity underlies my facetiousness
             </div>
         </footer>
     </div>
